@@ -26,6 +26,8 @@ for i in $(seq 1 $TOTAL_FILES); do
 done
 #exit file
 
-# execute file
+# Make the script executable
 chmod +x simulate_disk_usage.sh
 
+# run file
+./simulate_disk_usage.sh
