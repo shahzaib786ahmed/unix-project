@@ -1,0 +1,8 @@
+# I used this command to fully update to the latest
+sudo apt update
+# I used this command to install Prometheus
+sudo apt install prometheus prometheus-node-exporter
+# I used this to check the file to configure if I wanted
+sudo nano /etc/prometheus/prometheus.yml
+I used this command to check the status of my service to see if it's running properly
+sudo systemctl status prometheus
