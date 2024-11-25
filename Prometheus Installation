@@ -1,0 +1,6 @@
+sudo apt update #Updates the local package index.
+sudo apt install prometheus prometheus-node-exporter #Installs Prometheus and its Node Exporter component.
+sudo nano /etc/prometheus/prometheus.yml # Opens the Prometheus configuration file for editing.
+sudo systemctl restart prometheus #Restarts the Prometheus service to apply configuration changes.
+sudo systemctl status prometheus # Checks the status of the Prometheus service.
+hostname -I #Displays the system's network IP addresses.
