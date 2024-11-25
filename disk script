@@ -24,6 +24,8 @@ for i in $(seq 1 $TOTAL_FILES); do
     echo "Disk usage increased. File $i of $TOTAL_FILES created."
     sleep $DELAY
 done
-# file
+#exit file
+
+# execute file
 chmod +x simulate_disk_usage.sh
 
