@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Set threshold for CPU usage
+THRESHOLD=80
+CHECK_INTERVAL=60  # Check every minute
+ALERT_TIME=600     # 10 minutes
+
+# Temporary file to store CPU usage history
+CPU_HISTORY_FILE="/tmp/cpu_usage_history.txt"
+
+# Function to check current CPU usage
+get_cpu_usage() {
+  # Using mpstat to get the average CPU usage excluding idle time
+  cpu_usage=$(mpstat 1 1 | awk '/Average/ {print 100 - $12}')
+  echo $cpu_usage
+}
+
+# Function to log CPU usage
+log_cpu_usage() {
+  local cpu_usage=$1
+  echo "$(date +%s),$cpu_usage" >> $CPU_HISTORY_FILE
+}
+
+# Function to check if CPU usage has been over the threshold for the specified duration
+check_high_cpu_usage() {
+  local count=0
+  local total_time=0
+  current_time=$(date +%s)
+# Iterate through the CPU history and check usage
+  while IFS=, read -r timestamp usage; do
+    # Calculate time difference
+    time_diff=$((current_time - timestamp))
+
+    # Only consider logs within the ALERT_TIME window
+    if [[ $time_diff -le $ALERT_TIME ]]; then
+      if (( $(echo "$usage > $THRESHOLD" | bc -l) )); then
+        ((count++))
+      fi
+    fi
+  done < $CPU_HISTORY_FILE
+
+  # If CPU usage is above threshold for more than the specified duration, send an alert
+  if ((count >= ALERT_TIME / CHECK_INTERVAL)); then
+    echo "ALERT: CPU usage has been over $THRESHOLD% for the past 10 minutes."
+  fi
+}
+
+# Main loop
+while true; do
+  # Get current CPU usage
+  cpu_usage=$(get_cpu_usage)
+  
+  # Log the CPU usage with timestamp
+  log_cpu_usage $cpu_usage
+
+  # Check if the CPU usage has been over the threshold for 10 minutes
+   check_high_cpu_usage
+
+ # Wait for the specified check interval
+  sleep $CHECK_INTERVAL
+done
+
+
+
+
