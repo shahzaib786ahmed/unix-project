@@ -1,6 +1,6 @@
 Course: Unix (420-321-VA) – Fall 2024 
 Teacher: Tassia Camoes Araujo 
-Team Composition: Jkini Manal, Dania Iriqat, Shahzaib Ahmad
+Team Composition: Jkini Manal, Dania Iriqat, Shahzaib Ahmed
 License: CC0
 Project Proposal: System Monitoring Server in a Local Network Simulated with VMs
 1. Project Description/Goals 
