@@ -43,7 +43,7 @@ Restart=on-failure
 WantedBy=multi-user.target
 #exit file 
 #create systemd for cpu monitoring
-sudo nano /etc/systemd/system/cpu_monitor.service
+sudo nano /etc/systemd/system/cpu_usage_alert.service
 #add the folowing lines
 [Unit]
 Description=CPU Monitoring Service
