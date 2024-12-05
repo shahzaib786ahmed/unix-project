@@ -1,6 +1,6 @@
-// create systemd file for the disk usage 
+# create systemd file for the disk usage 
 sudo nano /etc/systemd/system/simulate_disk_usage.service
-// add the followinf lines
+# add the followinf lines
 [Unit]
 Description=Simulate Disk Usage
 After=network.target
@@ -11,11 +11,11 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-//exit the file 
+#exit the file 
 
-//// create systemd file for the disk cleanup
+# create systemd file for the disk cleanup
 sudo nano /etc/systemd/system/cleanup_disk_usage.service
-// add the following lines
+# add the following lines
 [Unit]
 Description=Cleanup Simulated Disk Usage
 After=simulate_disk_usage.service
@@ -26,11 +26,11 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-//exit file
+#exit file
 
-//create systemd file for securuty check
+#create systemd file for securuty check
 sudo nano /etc/systemd/system/security_check.service
-//add the following lines 
+#add the following lines 
 [Unit]
 Description=Perform Security Checks
 After=network.target
@@ -41,10 +41,10 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-//exit file 
-//create systemd for cpu monitoring
+#exit file 
+#create systemd for cpu monitoring
 sudo nano /etc/systemd/system/cpu_monitor.service
-//add the folowing lines
+#add the folowing lines
 [Unit]
 Description=CPU Monitoring Service
 After=network.target
@@ -56,21 +56,21 @@ User=root
 
 [Install]
 WantedBy=multi-user.target
-//exit the file
-// reload systemd to recognize the created files
+#exit the file
+# reload systemd to recognize the created files
 sudo systemctl daemon-reload
-//enable them so that they start running when you open the machine
+#enable them so that they start running when you open the machine
 sudo systemctl enable simulate_disk_usage.service
 sudo systemctl enable cleanup_disk_usage.service
 sudo systemctl enable security_check.service
 sudo systemctl enable cpu_monitor.service
 
-//if you want to make sure that everything is good do the following lines 
+#if you want to make sure that everything is good do the following lines 
 sudo systemctl start simulate_disk_usage.service
 sudo systemctl start cleanup_disk_usage.service
 sudo systemctl start security_check.service
 sudo systemctl start cpu_monitor.service
-//and do this to check if they're running
+#and do this to check if they're running
 sudo systemctl status simulate_disk_usage.service
 sudo systemctl status cleanup_disk_usage.service
 sudo systemctl status security_check.service
