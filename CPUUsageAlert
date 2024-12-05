@@ -62,4 +62,5 @@ done
 
 
 
-
+#in order to analize cpu you should install this package
+sudo apt-get install sysstat
