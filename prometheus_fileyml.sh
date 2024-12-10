@@ -43,3 +43,9 @@ scrape_configs:
     # machine by default.
     static_configs:
       - targets: ['localhost:9100']
+osboxes@osboxes:~$ promtool check rules /etc/prometheus/alerts.yml
+Checking /etc/prometheus/alerts.yml
+  FAILED:
+/etc/prometheus/alerts.yml: yaml: unmarshal errors:
+  line 1: field rule_files not found in type rulefmt.RuleGroups
+  line 13: field description not found in type rulefmt.RuleNode
