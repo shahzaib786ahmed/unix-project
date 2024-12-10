@@ -1,3 +1,4 @@
+sudo nano etc/prometheus/prometheus.yml
 # Sample config for Prometheus.
 
 global:
