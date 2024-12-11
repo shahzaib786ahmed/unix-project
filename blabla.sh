@@ -1,22 +1,22 @@
-scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
+groups:
+  - name: memory_alerts
+    rules:
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+         summary: "High Memory Usage on {{ $labels.instance }}"
+         description: "Memory usage on instance {{ $labels.instance }} is above 90% for the last 5 minutes."
 
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-    scrape_timeout: 5s
-
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
-
-    static_configs:
-      - targets: ['localhost:9090']
-
-  - job_name: node
-    # If prometheus-node-exporter is installed, grab stats about the local
-    # machine by default.
-    static_configs:
-      - targets: ['localhost:9100']
-  - job_name: 'kali-linux'
-    static_configs:
-      - targets: ['192.168.2.36:9100']
+  - name: cpu_alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1m]))) > 80
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU Usage on {{ $labels.instance }}"
+          description: "CPU usage on instance {{ $labels.instance }} has been over 80% for the last 10 minutes."
