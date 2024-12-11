@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network.target
+
+[Service]
+User=nodeexporter
+Group=nodeexporter
+Type=simple
+ExecStart=/home/shahzaib/node_exporter-1.8.2.linux-amd64/node_exporter
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
